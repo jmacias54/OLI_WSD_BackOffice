@@ -13,10 +13,7 @@
 
 	<context:component-scan base-package="mx.com.amx.unotv.oli.wsd.backoffice" />
 	
-	
-	<bean id="nNotaBO" class="mx.com.amx.unotv.oli.wsd.backoffice.bo.NNotaBO"></bean> 
-	<bean id="iMagazineBO" class="mx.com.amx.unotv.oli.wsd.backoffice.bo.IMagazineBO"></bean> 
-	<bean id="magazineBO" class="mx.com.amx.unotv.oli.wsd.backoffice.bo.MagazineBO"></bean> 
+
 
 <bean
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">

@@ -4,16 +4,13 @@
 package mx.com.amx.unotv.oli.wsd.backoffice.dao;
 
 import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-
 import mx.com.amx.unotv.oli.wsd.backoffice.dao.exception.IMagazineDAOException;
-import mx.com.amx.unotv.oli.wsd.backoffice.dao.exception.MagazineDAOException;
 import mx.com.amx.unotv.oli.wsd.backoffice.model.IMagazine;
-import mx.com.amx.unotv.oli.wsd.backoffice.model.Magazine;
+
 
 /**
  * @author Jesus A. Macias Benitez
@@ -51,11 +48,11 @@ public class IMagazineDAO {
 
 	
 	
-	public void delete(String idContenido) throws IMagazineDAOException {
+	public void delete(String idMagazine) throws IMagazineDAOException {
 		logger.info("--- delete  [IMagazineDAO] ---- ");
 		
 		StringBuilder query = new StringBuilder();
-		query.append(" DELETE FROM oli_mx_i_magazine  WHERE FC_ID_CONTENIDO = '"+idContenido+"'");
+		query.append(" DELETE FROM oli_mx_i_magazine  WHERE FC_ID_MAGAZINE = '"+idMagazine+"'");
 
 		try {
 
@@ -68,12 +65,12 @@ public class IMagazineDAO {
 	}
 
 	
-	public IMagazine findById(String idContenido) throws IMagazineDAOException {
+	public IMagazine findById(String idMagazine) throws IMagazineDAOException {
 		logger.info("--- findById  [IMagazineDAO] ---- ");
 		List<IMagazine> lista = null;
 
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM oli_mx_i_magazine   WHERE FC_ID_CONTENIDO = '"+idContenido+"' ");
+		query.append(" SELECT * FROM oli_mx_i_magazine   WHERE FC_ID_MAGAZINE = '"+idMagazine+"' ");
 
 		try {
 
@@ -92,15 +89,22 @@ public class IMagazineDAO {
 		return lista.get(0);
 	}
 
+
 	
-	public int update(IMagazine imagazine) {
-		logger.info("--- update  [IMagazineDAO] ---- ");
-		return 0;
-	}
-	
-	public int insert(IMagazine imagazine) {
+	public int insert(IMagazine imagazine) throws IMagazineDAOException {
 		logger.info("--- insert  [IMagazineDAO] ---- ");
-		return 0;
+		int res=0;
+		try {
+
+			res = jdbcTemplate.update("INSERT INTO oli_mx_i_magazine (FC_ID_MAGAZINE,FC_ID_CONTENIDO) VALUES (?,?)", 
+										imagazine.getFcIdMagazine(),imagazine.getFcIdContenido());
+
+		} catch (Exception e) {
+			logger.error(" Error insert  [ MagazineDAO ] ", e);
+			throw new IMagazineDAOException(e.getMessage());
+		}
+
+		return res;
 	}
 
 
