@@ -3,6 +3,7 @@
  */
 package mx.com.amx.unotv.oli.wsd.backoffice.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -50,6 +51,10 @@ public class NNotaController {
 			if (lista != null && !lista.isEmpty()) {
 				response = new ListResponse<NNota>();
 				response.setLista(lista);
+			}else {
+				
+				response = new ListResponse<NNota>();
+				response.setLista(Collections.<NNota>emptyList());
 			}
 
 		} catch (Exception e) {
@@ -76,6 +81,10 @@ public class NNotaController {
 			if (lista != null && !lista.isEmpty()) {
 				response = new ListResponse<NNota>();
 				response.setLista(lista);
+			}else {
+				
+				response = new ListResponse<NNota>();
+				response.setLista(Collections.<NNota>emptyList());
 			}
 
 		} catch (Exception e) {
@@ -101,6 +110,10 @@ public class NNotaController {
 			if (lista != null && !lista.isEmpty()) {
 				response = new ListResponse<NNota>();
 				response.setLista(lista);
+			}else {
+				
+				response = new ListResponse<NNota>();
+				response.setLista(Collections.<NNota>emptyList());
 			}
 
 		} catch (Exception e) {
@@ -126,6 +139,10 @@ public class NNotaController {
 			if (lista != null && !lista.isEmpty()) {
 				response = new ListResponse<NNota>();
 				response.setLista(lista);
+			}else {
+				
+				response = new ListResponse<NNota>();
+				response.setLista(Collections.<NNota>emptyList());
 			}
 
 		} catch (Exception e) {

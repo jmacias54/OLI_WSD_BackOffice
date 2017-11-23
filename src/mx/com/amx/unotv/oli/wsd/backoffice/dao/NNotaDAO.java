@@ -130,5 +130,32 @@ public class NNotaDAO {
 
 		return lista;
 	}
+	
+	public List<NNota> findByMagazine(String idMagazine) throws NNotaDAOException {
+		logger.info("--- findByMagazine  [NNotaDAO] ---- ");
+
+		List<NNota> lista = null;
+
+		StringBuilder query = new StringBuilder();
+		query.append(" SELECT * FROM OLI_MX_N_NOTA WHERE FC_ID_CLASS_VIDEO ='" + idMagazine + "'");
+
+		try {
+
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<NNota>(NNota.class));
+
+		} catch (Exception e) {
+
+			logger.error(" Error findByMagazine [ NNotaDAO ] ", e);
+
+			throw new NNotaDAOException(e.getMessage());
+
+		}
+
+		if (lista.isEmpty() || lista == null) {
+			return Collections.emptyList();
+		}
+
+		return lista;
+	}
 
 }

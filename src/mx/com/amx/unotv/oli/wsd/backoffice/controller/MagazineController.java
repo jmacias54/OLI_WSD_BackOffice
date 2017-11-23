@@ -3,6 +3,7 @@
  */
 package mx.com.amx.unotv.oli.wsd.backoffice.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -51,7 +52,12 @@ public class MagazineController {
 			if (lista != null && !lista.isEmpty()) {
 				response = new ListResponse<Magazine>();
 				response.setLista(lista);
+			}else {
+				
+				response = new ListResponse<Magazine>();
+				response.setLista(Collections.<Magazine>emptyList());
 			}
+			
 
 		} catch (Exception e) {
 			logger.error(" -- Error  findAll [ MagazineController ]:", e);
