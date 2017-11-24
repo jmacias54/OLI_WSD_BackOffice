@@ -3,7 +3,6 @@
  */
 package mx.com.amx.unotv.oli.wsd.backoffice.dao;
 
-import java.util.Collections;
 import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,35 +24,7 @@ public class IMagazineDAO {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	
-	public List<IMagazine> findAll() throws IMagazineDAOException {
-		logger.info("--- findAll  [IMagazineDAO] ---- ");
-		
-		List<IMagazine> lista = null;
 
-		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM oli_mx_i_nota_magazine  ");
-
-		try {
-
-			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<IMagazine>(IMagazine.class));
-
-		} catch (Exception e) {
-			logger.error(" Error findAll  [ IMagazineDAO ] ", e);
-			throw new IMagazineDAOException(e.getMessage());
-		}
-		
-		if(lista ==  null || lista.isEmpty()) {
-			
-			return Collections.emptyList();
-		}
-
-		return lista;
-	}
-
-
-	
-	
 	public void delete(String idMagazine) throws IMagazineDAOException {
 		logger.info("--- delete  [IMagazineDAO] ---- ");
 		

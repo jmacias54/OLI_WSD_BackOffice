@@ -3,8 +3,6 @@
  */
 package mx.com.amx.unotv.oli.wsd.backoffice.controller;
 
-import java.util.Collections;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import mx.com.amx.unotv.oli.wsd.backoffice.controller.exception.ControllerException;
 import mx.com.amx.unotv.oli.wsd.backoffice.dao.IMagazineDAO;
 import mx.com.amx.unotv.oli.wsd.backoffice.model.IMagazine;
-import mx.com.amx.unotv.oli.wsd.backoffice.response.ListResponse;
 
 /**
  * @author Jesus A. Macias Benitez
@@ -33,36 +30,6 @@ public class IMagazineController {
 	@Autowired
 	IMagazineDAO iMagazineDAO;
 
-	@RequestMapping(value = "/", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
-	@ResponseBody
-	public ListResponse<IMagazine> findAll() throws ControllerException {
-		logger.info("--- findAll [ IMagazineController ]---- ");
-
-		List<IMagazine> lista = null;
-		ListResponse<IMagazine> response = null;
-
-		try {
-
-			lista = iMagazineDAO.findAll();
-
-			if (lista != null && !lista.isEmpty()) {
-				response = new ListResponse<IMagazine>();
-				response.setLista(lista);
-			}else {
-				
-				response = new ListResponse<IMagazine>();
-				response.setLista(Collections.<IMagazine>emptyList());
-			}
-
-		} catch (Exception e) {
-			logger.error(" -- Error  findAll [ IMagazineController ]:", e);
-			throw new ControllerException(e.getMessage());
-		}
-
-		return response;
-
-	}
-	
 	@RequestMapping(value = "/{idMagazine}", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
 	public IMagazine findById(@PathVariable String idMagazine) throws ControllerException {

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import mx.com.amx.unotv.oli.wsd.backoffice.controller.exception.ControllerException;
 import mx.com.amx.unotv.oli.wsd.backoffice.dao.MagazineDAO;
 import mx.com.amx.unotv.oli.wsd.backoffice.model.Magazine;
-import mx.com.amx.unotv.oli.wsd.backoffice.response.ListResponse;
+import mx.com.amx.unotv.oli.wsd.backoffice.response.MagazineList;
 
 
 
@@ -39,22 +39,22 @@ public class MagazineController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST, headers = "Accept=application/json; charset=utf-8")
 	@ResponseBody
-	public ListResponse<Magazine> findAll() throws ControllerException{
+	public MagazineList findAll() throws ControllerException{
 		logger.info("--- findAll [ MagazineController ]---- ");
 
 		List<Magazine> lista = null;
-		ListResponse<Magazine> response = null;
+		MagazineList response = null;
 
 		try {
 
+			response = new MagazineList();
 			lista = magazineDAO.findAll();
 
 			if (lista != null && !lista.isEmpty()) {
-				response = new ListResponse<Magazine>();
+
 				response.setLista(lista);
-			}else {
-				
-				response = new ListResponse<Magazine>();
+			} else {
+
 				response.setLista(Collections.<Magazine>emptyList());
 			}
 			

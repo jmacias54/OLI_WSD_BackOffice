@@ -9,9 +9,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-
 import mx.com.amx.unotv.oli.wsd.backoffice.dao.exception.NNotaDAOException;
-import mx.com.amx.unotv.oli.wsd.backoffice.model.NNota;
 import mx.com.amx.unotv.oli.wsd.backoffice.response.ItemResponse;
 import mx.com.amx.unotv.oli.wsd.backoffice.response.MagazineResponse;
 
@@ -28,33 +26,6 @@ public class NNotaDAO {
 	
 	
 		
-
-
-	public List<NNota> findAll() throws NNotaDAOException {
-		List<NNota> lista = null;
-
-		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM OLI_MX_N_NOTA  ");
-
-		try {
-
-			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<NNota>(NNota.class));
-
-		} catch (Exception e) {
-
-			logger.error(" Error findAll  [ NNotaDAO ] ", e);
-
-			throw new NNotaDAOException(e.getMessage());
-
-		}
-
-		if (lista.isEmpty() || lista == null) {
-			return Collections.emptyList();
-		}
-
-		return lista;
-	}
-
 	public List<ItemResponse> findByIdCategoria(String idCategoria) throws NNotaDAOException {
 		logger.info("--- findByIdCategoria  [NNotaDAO] ---- ");
 
