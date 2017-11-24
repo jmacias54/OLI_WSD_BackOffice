@@ -12,6 +12,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import mx.com.amx.unotv.oli.wsd.backoffice.dao.exception.NNotaDAOException;
 import mx.com.amx.unotv.oli.wsd.backoffice.model.NNota;
+import mx.com.amx.unotv.oli.wsd.backoffice.response.ItemResponse;
+import mx.com.amx.unotv.oli.wsd.backoffice.response.MagazineResponse;
 
 /**
  * @author Jesus A. Macias Benitez
@@ -23,6 +25,9 @@ public class NNotaDAO {
 	/** The jdbc template. */
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	
+		
 
 
 	public List<NNota> findAll() throws NNotaDAOException {
@@ -50,17 +55,29 @@ public class NNotaDAO {
 		return lista;
 	}
 
-	public List<NNota> findByIdCategoria(String idCategoria) throws NNotaDAOException {
+	public List<ItemResponse> findByIdCategoria(String idCategoria) throws NNotaDAOException {
 		logger.info("--- findByIdCategoria  [NNotaDAO] ---- ");
 
-		List<NNota> lista = null;
+		List<ItemResponse> lista = null;
 
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM OLI_MX_N_NOTA WHERE FC_ID_CATEGORIA ='" + idCategoria + "'");
+		query.append(" SELECT nota.FC_ID_CONTENIDO fc_id_contenido, ");
+		query.append(" 	      nota.FC_ID_CATEGORIA fc_id_categoria, ");
+		query.append("        nota.FC_TIPO_NOTA fc_tipo_nota, ");
+		query.append("        nota.FC_ID_CLASS_VIDEO fc_id_class_video, ");
+		query.append(" 	      nota.FC_TITULO fc_titulo, ");
+		query.append("        nota.FC_DESCRIPCION fc_descripcion, ");
+		query.append("        nota.FC_FRIENDLY_URL fc_friendy_url, ");
+		query.append("        nota.FC_IMAGEN fc_imagen, ");
+		query.append("        nota.FD_FECHA_PUBLICACION fc_fecha_publicacion, ");
+		query.append("        categotia.FC_DESCRIPCION fc_descripcion_categoria ");
+		query.append(" FROM OLI_MX_N_NOTA nota");
+		query.append(" INNER JOIN oli_mx_c_categoria categotia ON nota.FC_ID_CATEGORIA = categotia.FC_ID_CATEGORIA");
+		query.append("  WHERE nota.FC_ID_CATEGORIA ='" + idCategoria + "'");
 
 		try {
 
-			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<NNota>(NNota.class));
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<ItemResponse>(ItemResponse.class));
 
 		} catch (Exception e) {
 
@@ -77,17 +94,29 @@ public class NNotaDAO {
 		return lista;
 	}
 
-	public List<NNota> findByTipoNota(String tipoNota) throws NNotaDAOException {
+	public List<ItemResponse> findByTipoNota(String tipoNota) throws NNotaDAOException {
 		logger.info("--- findByTipoNota  [NNotaDAO] ---- ");
 
-		List<NNota> lista = null;
+		List<ItemResponse> lista = null;
 
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM OLI_MX_N_NOTA WHERE FC_TIPO_NOTA ='" + tipoNota + "'");
+		query.append(" SELECT nota.FC_ID_CONTENIDO fc_id_contenido, ");
+		query.append(" 	      nota.FC_ID_CATEGORIA fc_id_categoria, ");
+		query.append("        nota.FC_TIPO_NOTA fc_tipo_nota, ");
+		query.append("        nota.FC_ID_CLASS_VIDEO fc_id_class_video, ");
+		query.append(" 	      nota.FC_TITULO fc_titulo, ");
+		query.append("        nota.FC_DESCRIPCION fc_descripcion, ");
+		query.append("        nota.FC_FRIENDLY_URL fc_friendy_url, ");
+		query.append("        nota.FC_IMAGEN fc_imagen, ");
+		query.append("        nota.FD_FECHA_PUBLICACION fc_fecha_publicacion, ");
+		query.append("        categotia.FC_DESCRIPCION fc_descripcion_categoria ");
+		query.append(" FROM OLI_MX_N_NOTA nota");
+		query.append(" INNER JOIN oli_mx_c_categoria categotia ON nota.FC_ID_CATEGORIA = categotia.FC_ID_CATEGORIA");
+		query.append(" WHERE nota.FC_TIPO_NOTA ='" + tipoNota + "'");
 
 		try {
 
-			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<NNota>(NNota.class));
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<ItemResponse>(ItemResponse.class));
 
 		} catch (Exception e) {
 
@@ -104,17 +133,30 @@ public class NNotaDAO {
 		return lista;
 	}
 
-	public List<NNota> findByIdClassVideo(String idClassVideo) throws NNotaDAOException {
+	public List<ItemResponse> findByIdClassVideo(String idClassVideo) throws NNotaDAOException {
 		logger.info("--- findByIdClassVideo  [NNotaDAO] ---- ");
 
-		List<NNota> lista = null;
+		List<ItemResponse> lista = null;
 
+	
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM OLI_MX_N_NOTA WHERE FC_ID_CLASS_VIDEO ='" + idClassVideo + "'");
+		query.append(" SELECT nota.FC_ID_CONTENIDO fc_id_contenido, ");
+		query.append(" 	      nota.FC_ID_CATEGORIA fc_id_categoria, ");
+		query.append("        nota.FC_TIPO_NOTA fc_tipo_nota, ");
+		query.append("        nota.FC_ID_CLASS_VIDEO fc_id_class_video, ");
+		query.append(" 	      nota.FC_TITULO fc_titulo, ");
+		query.append("        nota.FC_DESCRIPCION fc_descripcion, ");
+		query.append("        nota.FC_FRIENDLY_URL fc_friendy_url, ");
+		query.append("        nota.FC_IMAGEN fc_imagen, ");
+		query.append("        nota.FD_FECHA_PUBLICACION fc_fecha_publicacion, ");
+		query.append("        categotia.FC_DESCRIPCION fc_descripcion_categoria ");
+		query.append(" FROM OLI_MX_N_NOTA nota");
+		query.append(" INNER JOIN oli_mx_c_categoria categotia ON nota.FC_ID_CATEGORIA = categotia.FC_ID_CATEGORIA");
+		query.append(" WHERE nota.FC_ID_CLASS_VIDEO ='" + idClassVideo + "'");
 
 		try {
 
-			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<NNota>(NNota.class));
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<ItemResponse>(ItemResponse.class));
 
 		} catch (Exception e) {
 
@@ -131,17 +173,33 @@ public class NNotaDAO {
 		return lista;
 	}
 	
-	public List<NNota> findByMagazine(String idMagazine) throws NNotaDAOException {
+	public List<MagazineResponse> findByMagazine(String idMagazine) throws NNotaDAOException {
 		logger.info("--- findByMagazine  [NNotaDAO] ---- ");
 
-		List<NNota> lista = null;
+		List<MagazineResponse> lista = null;
 
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM OLI_MX_N_NOTA WHERE FC_ID_CLASS_VIDEO ='" + idMagazine + "'");
+		query.append(" SELECT nota.FC_ID_CONTENIDO fc_id_contenido, ");
+		query.append(" 	      nota.FC_ID_CATEGORIA fc_id_categoria, ");
+		query.append("        nota.FC_TIPO_NOTA fc_tipo_nota, ");
+		query.append("        nota.FC_ID_CLASS_VIDEO fc_id_class_video, ");
+		query.append(" 	      nota.FC_TITULO fc_titulo, ");
+		query.append("        nota.FC_DESCRIPCION fc_descripcion, ");
+		query.append("        nota.FC_FRIENDLY_URL fc_friendy_url, ");
+		query.append("        nota.FC_IMAGEN fc_imagen, ");
+		query.append("        nota.FD_FECHA_PUBLICACION fc_fecha_publicacion, ");
+		query.append("        categotia.FC_DESCRIPCION fc_descripcion_categoria, ");
+		query.append("        imagazine.FC_ID_MAGAZINE fc_id_magazine , ");
+		query.append("        imagazine.FC_URL_EXTERNA fc_url_externa, ");
+		query.append("        imagazine.FI_ORDEN fi_orden  ");
+		query.append(" FROM OLI_MX_N_NOTA nota ");
+		query.append(" INNER JOIN oli_mx_c_categoria categotia ON nota.FC_ID_CATEGORIA = categotia.FC_ID_CATEGORIA ");
+		query.append(" INNER JOIN oli_mx_i_nota_magazine imagazine on nota.FC_ID_CONTENIDO = imagazine.FC_ID_CONTENIDO ");
+		query.append(" WHERE imagazine.FC_ID_MAGAZINE ='" + idMagazine + "'");
 
 		try {
 
-			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<NNota>(NNota.class));
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<MagazineResponse>(MagazineResponse.class));
 
 		} catch (Exception e) {
 

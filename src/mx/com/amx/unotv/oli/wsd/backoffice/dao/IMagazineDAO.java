@@ -32,7 +32,7 @@ public class IMagazineDAO {
 		List<IMagazine> lista = null;
 
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM oli_mx_i_magazine  ");
+		query.append(" SELECT * FROM oli_mx_i_nota_magazine  ");
 
 		try {
 
@@ -58,7 +58,7 @@ public class IMagazineDAO {
 		logger.info("--- delete  [IMagazineDAO] ---- ");
 		
 		StringBuilder query = new StringBuilder();
-		query.append(" DELETE FROM oli_mx_i_magazine  WHERE FC_ID_MAGAZINE = '"+idMagazine+"'");
+		query.append(" DELETE FROM oli_mx_i_nota_magazine  WHERE FC_ID_MAGAZINE = '"+idMagazine+"'");
 
 		try {
 
@@ -76,7 +76,7 @@ public class IMagazineDAO {
 		List<IMagazine> lista = null;
 
 		StringBuilder query = new StringBuilder();
-		query.append(" SELECT * FROM oli_mx_i_magazine   WHERE FC_ID_MAGAZINE = '"+idMagazine+"' ");
+		query.append(" SELECT * FROM oli_mx_i_nota_magazine   WHERE FC_ID_MAGAZINE = '"+idMagazine+"' ");
 
 		try {
 
@@ -102,8 +102,8 @@ public class IMagazineDAO {
 		int res=0;
 		try {
 
-			res = jdbcTemplate.update("INSERT INTO oli_mx_i_magazine (FC_ID_MAGAZINE,FC_ID_CONTENIDO) VALUES (?,?)", 
-										imagazine.getFcIdMagazine(),imagazine.getFcIdContenido());
+			res = jdbcTemplate.update("INSERT INTO oli_mx_i_nota_magazine (FC_ID_MAGAZINE,FC_ID_CONTENIDO,FC_URL_EXTERNA,FI_ORDEN) VALUES (?,?,?,?)", 
+										imagazine.getFcIdMagazine(),imagazine.getFcIdContenido(),imagazine.getFcUrlExterna(),imagazine.getFiOrden());
 
 		} catch (Exception e) {
 			logger.error(" Error insert  [ MagazineDAO ] ", e);
