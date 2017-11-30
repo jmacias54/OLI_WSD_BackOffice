@@ -33,7 +33,7 @@
 	<bean id="nNotaDAO" class="mx.com.amx.unotv.oli.wsd.backoffice.dao.NNotaDAO"></bean> 
 	<bean id="iMagazineDAO" class="mx.com.amx.unotv.oli.wsd.backoffice.dao.IMagazineDAO"></bean> 
 	<bean id="magazineDAO" class="mx.com.amx.unotv.oli.wsd.backoffice.dao.MagazineDAO"></bean> 
-	
+	<bean id="sequenceImageDAO" class="mx.com.amx.unotv.oli.wsd.backoffice.dao.SequenceImageDAO"></bean> 
 	
 	
 
