@@ -166,7 +166,7 @@ public class NNotaDAO {
 		query.append(" FROM OLI_MX_N_NOTA nota ");
 		query.append(" INNER JOIN oli_mx_c_categoria categotia ON nota.FC_ID_CATEGORIA = categotia.FC_ID_CATEGORIA ");
 		query.append(" INNER JOIN oli_mx_i_nota_magazine imagazine on nota.FC_ID_CONTENIDO = imagazine.FC_ID_CONTENIDO ");
-		query.append(" WHERE imagazine.FC_ID_MAGAZINE ='" + idMagazine + "'");
+		query.append(" WHERE imagazine.FC_ID_MAGAZINE ='" + idMagazine + "'   ORDER BY  imagazine.FI_ORDEN ");
 
 		try {
 

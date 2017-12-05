@@ -11,7 +11,7 @@
 
 	<mvc:annotation-driven />
 
-	<context:component-scan base-package="mx.com.amx.unotv.oli.wsd.backoffice" />
+	<context:component-scan base-package="mx.com.amx.unotv.oli.wsd.backoffice.controller" />
 	
 
 
