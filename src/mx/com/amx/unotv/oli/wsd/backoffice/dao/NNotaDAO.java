@@ -25,9 +25,54 @@ public class NNotaDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	
+	
+	public List<ItemResponse> findAll(Integer limit) throws NNotaDAOException {
+		logger.info("--- findAll  [NNotaDAO] ---- ");
+		logger.info("---  limit : "+limit);
+
+		List<ItemResponse> lista = null;
+
+		StringBuilder query = new StringBuilder();
+		query.append(" SELECT nota.FC_ID_CONTENIDO fc_id_contenido, ");
+		query.append(" 	      nota.FC_ID_CATEGORIA fc_id_categoria, ");
+		query.append("        nota.FC_TIPO_NOTA fc_tipo_nota, ");
+		query.append("        nota.FC_ID_CLASS_VIDEO fc_id_class_video, ");
+		query.append(" 	      nota.FC_TITULO fc_titulo, ");
+		query.append("        nota.FC_DESCRIPCION fc_descripcion, ");
+		query.append("        nota.FC_FRIENDLY_URL fc_friendy_url, ");
+		query.append("        nota.FC_IMAGEN fc_imagen, ");
+		query.append("        nota.FD_FECHA_PUBLICACION fc_fecha_publicacion, ");
+		query.append("        categotia.FC_DESCRIPCION fc_descripcion_categoria ");
+		query.append(" FROM OLI_MX_N_NOTA nota");
+		query.append(" INNER JOIN oli_mx_c_categoria categotia ON nota.FC_ID_CATEGORIA = categotia.FC_ID_CATEGORIA");
+		query.append(" ORDER BY nota.FD_FECHA_PUBLICACION DESC ");
+		query.append(" LIMIT "+limit+" ");
+
+		try {
+
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<ItemResponse>(ItemResponse.class));
+
+		} catch (Exception e) {
+
+			logger.error(" Error findAll [ NNotaDAO ] ", e);
+
+			throw new NNotaDAOException(e.getMessage());
+
+		}
+
+		if (lista.isEmpty() || lista == null) {
+			return Collections.emptyList();
+		}
+
+		return lista;
+	}
+	
+	
 		
 	public List<ItemResponse> findByIdCategoria(String idCategoria) throws NNotaDAOException {
 		logger.info("--- findByIdCategoria  [NNotaDAO] ---- ");
+		logger.info("---  idCategoria : "+idCategoria);
+	
 
 		List<ItemResponse> lista = null;
 
@@ -45,6 +90,54 @@ public class NNotaDAO {
 		query.append(" FROM OLI_MX_N_NOTA nota");
 		query.append(" INNER JOIN oli_mx_c_categoria categotia ON nota.FC_ID_CATEGORIA = categotia.FC_ID_CATEGORIA");
 		query.append("  WHERE nota.FC_ID_CATEGORIA ='" + idCategoria + "'");
+		query.append(" ORDER BY nota.FD_FECHA_PUBLICACION DESC ");
+	
+
+		try {
+
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<ItemResponse>(ItemResponse.class));
+
+		} catch (Exception e) {
+
+			logger.error(" Error findByIdCategoria [ NNotaDAO ] ", e);
+
+			throw new NNotaDAOException(e.getMessage());
+
+		}
+
+		if (lista.isEmpty() || lista == null) {
+			return Collections.emptyList();
+		}
+
+		return lista;
+	}
+	
+	
+	public List<ItemResponse> findByIdCategoria(String idCategoria,Integer limit) throws NNotaDAOException {
+		logger.info("--- findByIdCategoria  [NNotaDAO] ---- ");
+		logger.info("---  idCategoria : "+idCategoria);
+		logger.info("---  limit : "+limit);
+
+		List<ItemResponse> lista = null;
+
+		StringBuilder query = new StringBuilder();
+		query.append(" SELECT nota.FC_ID_CONTENIDO fc_id_contenido, ");
+		query.append(" 	      nota.FC_ID_CATEGORIA fc_id_categoria, ");
+		query.append("        nota.FC_TIPO_NOTA fc_tipo_nota, ");
+		query.append("        nota.FC_ID_CLASS_VIDEO fc_id_class_video, ");
+		query.append(" 	      nota.FC_TITULO fc_titulo, ");
+		query.append("        nota.FC_DESCRIPCION fc_descripcion, ");
+		query.append("        nota.FC_FRIENDLY_URL fc_friendy_url, ");
+		query.append("        nota.FC_IMAGEN fc_imagen, ");
+		query.append("        nota.FD_FECHA_PUBLICACION fc_fecha_publicacion, ");
+		query.append("        categotia.FC_DESCRIPCION fc_descripcion_categoria ");
+		query.append(" FROM OLI_MX_N_NOTA nota");
+		query.append(" INNER JOIN oli_mx_c_categoria categotia ON nota.FC_ID_CATEGORIA = categotia.FC_ID_CATEGORIA");
+		query.append(" WHERE nota.FC_ID_CATEGORIA ='" + idCategoria + "'");
+		query.append(" ORDER BY nota.FD_FECHA_PUBLICACION DESC ");
+		query.append(" LIMIT "+limit+" ");
+
+	
 
 		try {
 
@@ -67,6 +160,8 @@ public class NNotaDAO {
 
 	public List<ItemResponse> findByTipoNota(String tipoNota) throws NNotaDAOException {
 		logger.info("--- findByTipoNota  [NNotaDAO] ---- ");
+		logger.info("---  tipoNota : "+tipoNota);
+		
 
 		List<ItemResponse> lista = null;
 
@@ -84,6 +179,7 @@ public class NNotaDAO {
 		query.append(" FROM OLI_MX_N_NOTA nota");
 		query.append(" INNER JOIN oli_mx_c_categoria categotia ON nota.FC_ID_CATEGORIA = categotia.FC_ID_CATEGORIA");
 		query.append(" WHERE nota.FC_TIPO_NOTA ='" + tipoNota + "'");
+		query.append(" ORDER BY nota.FD_FECHA_PUBLICACION DESC ");
 
 		try {
 
@@ -106,7 +202,9 @@ public class NNotaDAO {
 
 	public List<ItemResponse> findByIdClassVideo(String idClassVideo) throws NNotaDAOException {
 		logger.info("--- findByIdClassVideo  [NNotaDAO] ---- ");
-
+		logger.info("---  idClassVideo : "+idClassVideo);
+		
+	
 		List<ItemResponse> lista = null;
 
 	
@@ -124,6 +222,7 @@ public class NNotaDAO {
 		query.append(" FROM OLI_MX_N_NOTA nota");
 		query.append(" INNER JOIN oli_mx_c_categoria categotia ON nota.FC_ID_CATEGORIA = categotia.FC_ID_CATEGORIA");
 		query.append(" WHERE nota.FC_ID_CLASS_VIDEO ='" + idClassVideo + "'");
+		query.append(" ORDER BY nota.FD_FECHA_PUBLICACION DESC ");
 
 		try {
 
@@ -144,8 +243,56 @@ public class NNotaDAO {
 		return lista;
 	}
 	
+	
+	public List<ItemResponse> findByIdClassVideo(String idClassVideo, Integer limit) throws NNotaDAOException {
+		logger.info("--- findByIdClassVideo  [NNotaDAO] ---- ");
+		logger.info("---  idClassVideo : "+idClassVideo);
+		logger.info("---  limit : "+limit);
+	
+		List<ItemResponse> lista = null;
+
+	
+		StringBuilder query = new StringBuilder();
+		query.append(" SELECT nota.FC_ID_CONTENIDO fc_id_contenido, ");
+		query.append(" 	      nota.FC_ID_CATEGORIA fc_id_categoria, ");
+		query.append("        nota.FC_TIPO_NOTA fc_tipo_nota, ");
+		query.append("        nota.FC_ID_CLASS_VIDEO fc_id_class_video, ");
+		query.append(" 	      nota.FC_TITULO fc_titulo, ");
+		query.append("        nota.FC_DESCRIPCION fc_descripcion, ");
+		query.append("        nota.FC_FRIENDLY_URL fc_friendy_url, ");
+		query.append("        nota.FC_IMAGEN fc_imagen, ");
+		query.append("        nota.FD_FECHA_PUBLICACION fc_fecha_publicacion, ");
+		query.append("        categotia.FC_DESCRIPCION fc_descripcion_categoria ");
+		query.append(" FROM OLI_MX_N_NOTA nota");
+		query.append(" INNER JOIN oli_mx_c_categoria categotia ON nota.FC_ID_CATEGORIA = categotia.FC_ID_CATEGORIA");
+		query.append(" WHERE nota.FC_ID_CLASS_VIDEO ='" + idClassVideo + "'");
+		query.append(" ORDER BY nota.FD_FECHA_PUBLICACION DESC ");
+		query.append(" LIMIT "+limit+" ");
+		try {
+
+			lista = jdbcTemplate.query(query.toString(), new BeanPropertyRowMapper<ItemResponse>(ItemResponse.class));
+
+		} catch (Exception e) {
+
+			logger.error(" Error findByIdClassVideo [ NNotaDAO ] ", e);
+
+			throw new NNotaDAOException(e.getMessage());
+
+		}
+
+		if (lista.isEmpty() || lista == null) {
+			return Collections.emptyList();
+		}
+
+		return lista;
+	}
+	
+	
+	
 	public List<MagazineResponse> findByMagazine(String idMagazine) throws NNotaDAOException {
 		logger.info("--- findByMagazine  [NNotaDAO] ---- ");
+		logger.info("---  idMagazine : "+idMagazine);
+	
 
 		List<MagazineResponse> lista = null;
 
